@@ -21,26 +21,21 @@ class App extends Component {
   };
 
   handleIncrement = counter => {
-    const counters = [...this.state.counters];
-    const index = counters.indexOf(counter);
-    counters[index] = { ...counter };
-    counters[index].value++;
+    const { counters } = this.state;
+    counters[counters.indexOf(counter)].value++;
     this.setState({ counters });
   };
 
   handleDecrement = counter => {
-    const counters = [...this.state.counters];
+    const { counters } = this.state;
     const index = counters.indexOf(counter);
-    counters[index] = { ...counter };
-    counters[index].value--;
+    counters[index].value = counters[index].value === 0 ? 0 : counters[index].value - 1;
     this.setState({ counters });
   };
 
   handleReset = () => {
-    const counters = this.state.counters.map(c => {
-      c.value = 0;
-      return c;
-    });
+    const { counters } = this.state;
+    counters.forEach(c => c.value = 0);
     this.setState({ counters });
   };
 
@@ -50,6 +45,7 @@ class App extends Component {
       <React.Fragment>
         <Navbar totalCounters={ this.state.counters.filter(c => c.value > 0).length } />
         <div className='container mt-2 text-center'>
+          { this.state.counters.length === 0 && <p className='alert alert-danger'>No counters available.</p> }
           <Counters
             onReset={ this.handleReset }
             onIncrement={ this.handleIncrement }
