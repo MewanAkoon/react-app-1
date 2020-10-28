@@ -27,7 +27,7 @@ const Counters = ({
 };
 
 const getContainerClasses = totalCounters => {
-	let classes = 'jumbotron w-50 mx-auto';
+	let classes = 'jumbotron w-75 mx-auto';
 	if (totalCounters === 0) classes += ' d-none';
 	return classes;
 };
